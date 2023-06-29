@@ -1,35 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import { FieldValues, useForm } from 'react-hook-form';
+import './App.css';
+import { useFetchSummary } from './api/hooks';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [summary,setSummary] = useState(null);
+  const {mutateAsync} = useFetchSummary();
+
+  const onSubmit = async (data: FieldValues) => {
+    await mutateAsync(data, {
+      onSuccess: (response) => setSummary(response),
+      onError: () => console.log('error')
+    })
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <h2>Please Enter your leetcode username to get summary</h2>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className='form-container'>
+        <div className='form-section'>
+          <label htmlFor="username" className='form-title'>Username :</label>
+          <input type="text" id="username" {...register("username", { required: true })} className='form-input' />
+          <br />
+          {errors?.username && <span>This field is required</span>}
+        </div>
+          <button type="submit" className='submit-btn'>Submit</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    </form>
     </>
-  )
+  );
 }
 
 export default App
