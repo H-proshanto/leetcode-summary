@@ -3,20 +3,37 @@ import { FieldValues, useForm } from 'react-hook-form';
 import './App.css';
 import { useFetchSummary } from './api/hooks';
 
+type AcceptedSubmissions = {
+  difficulty: string;
+  count: number;
+}
+
 function App() {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const [summary,setSummary] = useState(null);
-  const {mutateAsync} = useFetchSummary();
+  // later change any type
+  const [summary,setSummary] = useState<any | null>(null);
+  const {mutateAsync, isLoading} = useFetchSummary();
+
+  console.log(summary);
 
   const onSubmit = async (data: FieldValues) => {
     await mutateAsync(data, {
-      onSuccess: (response) => setSummary(response),
+      onSuccess: ({data: payload}) => setSummary(payload),
       onError: () => console.log('error')
     })
   };
 
   return (
     <>
+    {isLoading && (
+        <div className="loader-overlay">
+        <div className="loader">
+          <div className="dot" />
+          <div className="dot" />
+          <div className="dot" />
+        </div>
+      </div>
+      )}
     <h2>Please Enter your leetcode username to get summary</h2>
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className='form-container'>
@@ -29,6 +46,19 @@ function App() {
           <button type="submit" className='submit-btn'>Submit</button>
       </div>
     </form>
+    {
+      summary && 
+      (
+      <div className='summary-container'>
+        {summary?.submitStatsGlobal?.acSubmissionNum.map((item: AcceptedSubmissions,index: number) => {
+          if (index === 0) {
+            return <p key={index} className='accepted-item'>{`Total Problems Solved : ${item.count}`}</p>
+          }
+          return <p key={index} className='accepted-item'>{`${item.difficulty} Problems : ${item.count}`}</p>
+        })}
+      </div>
+      )
+    }
     </>
   );
 }
