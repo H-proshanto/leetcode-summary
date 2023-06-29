@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import './App.css';
 import { useFetchSummary } from './api/hooks';
 
@@ -17,7 +18,11 @@ function App() {
   const onSubmit = async (data: FieldValues) => {
     await mutateAsync(data, {
       onSuccess: ({data: payload}) => setSummary(payload),
-      onError: () => console.log('error')
+      onError: () => toast.error("Data was not found!",{
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2200,
+        theme: 'dark'
+      })
     })
   };
 
