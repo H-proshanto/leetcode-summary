@@ -5,14 +5,15 @@ WORKDIR /app
 COPY ./client /app/client
 COPY ./server /app/server
 
-EXPOSE 3000
-EXPOSE 5173
+RUN npm install -g concurrently
+
+EXPOSE 3000 
+EXPOSE 3001
 
 WORKDIR /app/client
 RUN npm install
 
 WORKDIR /app/server
 RUN npm install
-RUN npm run start
 
-CMD cd /app/client && npm run dev
+CMD cd /app/server && npm run dev
