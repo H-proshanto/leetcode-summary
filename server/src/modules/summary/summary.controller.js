@@ -3,12 +3,12 @@ const axios = require('axios');
 
 const fetchUserSummary = async (req, res) => {
     try {   
-        const { userName } = req.body;
+        const { username } = req.body;
         const data = 
         {
             query: "\n query userProblemsSolved($username: String!) {\n allQuestionsCount {\n difficulty\n count\n } \n matchedUser(username: $username) {\n problemsSolvedBeatsStats {\n difficulty\n percentage\n }\n  submissionCalendar submitStatsGlobal {\n acSubmissionNum {\n difficulty\n count\n }\n }\n }\n}\n",
             variables: {
-                username: userName,
+                username,
             }
         }
 

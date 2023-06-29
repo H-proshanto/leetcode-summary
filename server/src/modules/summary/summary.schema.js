@@ -1,7 +1,7 @@
 const { string, object } = require('yup')
 
 const fetchSummarySchema = object().shape({
-    userName: string()
+    username: string()
         .required("username is required"),
 });
 
