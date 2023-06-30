@@ -28,7 +28,11 @@ A simple application that can easily get someones leetcode progress using userna
    </br>
     `cd client && npm install`
 
-4. cd into server from root and run server
+4. go into server directory and make a .env file
+    the file will contain
+    `PORT=SOME_PORT`
+
+5. cd into server from root and run server
     </br>
     </br>
    `cd server && yarn start`
@@ -39,7 +43,7 @@ A simple application that can easily get someones leetcode progress using userna
    </br>
     `cd server && npm start`
 
-5. cd into client from root and run client
+6. cd into client from root and run client
     </br>
     </br>
    `cd client && yarn run dev`
@@ -50,4 +54,14 @@ A simple application that can easily get someones leetcode progress using userna
    </br>
     `cd client && npm run dev`
 
-<h3>Alternatively you can do 2 - 5 using make file</h3>
+<h5>Alternatively you can do 2 - 5 using make file</h5>
+
+## Docker
+You can make docker image using the dockerfile. From root directory run
+     `docker build .`
+
+After image is built. Run the docker image with
+    `docker run -p 3001:3001 -p 3000:3000 container`
+     
+
+
