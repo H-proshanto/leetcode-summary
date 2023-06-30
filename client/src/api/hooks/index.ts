@@ -1,7 +1,11 @@
 
 import { useMutation } from "@tanstack/react-query";
-import { fetchSummary } from "../summary";
+import { fetchStats, fetchSummary } from "../summary";
 
-export const useFetchSummary = () => {
+export const useFetchStats = () => {
+    return useMutation(fetchStats);
+  }
+
+  export const useFetchSummary = () => {
     return useMutation(fetchSummary);
   }

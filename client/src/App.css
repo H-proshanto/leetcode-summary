@@ -83,6 +83,22 @@
   font-size: large;
 }
 
-.summary-container {
+.stats-container {
   margin-top: 5rem;
+}
+
+.table-item {
+  text-align: center;
+}
+
+.summary-container {
+    margin-top: 5rem;
+}
+
+.summary-title {
+  margin-bottom: 5rem;
+}
+
+.custom-table {
+  background-color: #242424;
 }
