@@ -29,8 +29,6 @@ function App() {
   const {mutateAsync, isLoading} = useFetchStats();
   const {mutateAsync: mutateAsyncSummary, isLoading: isSummaryLoading} = useFetchSummary();
 
-  console.log(summaries);
-
   const onSubmit = async (data: FieldValues) => {
     await mutateAsyncSummary(data, {
       onSuccess: ({data: payload}) => setSummaries(payload),
