@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import './App.css';
-import { useFetchStats, useFetchSummary } from './api/hooks';
+import { useFetchSummary } from './api/hooks';
 
-type Stats = {
-  difficulty: string;
-  count: number;
-}
+// type Stats = {
+//   difficulty: string;
+//   count: number;
+// }
 
 type AcceptedSubmissions = {
   timestamp: string;
@@ -25,8 +25,8 @@ function App() {
   const { getValues,register, handleSubmit, formState: { errors } } = useForm();
   // later change any type
   const [summaries,setSummaries] = useState<AcceptedSubmissions[] | null>(null);
-  const [stats,setStats] = useState<Stats[] | null>(null);
-  const {mutateAsync, isLoading} = useFetchStats();
+  // const [stats,setStats] = useState<Stats[] | null>(null);
+  // const {mutateAsync, isLoading} = useFetchStats();
   const {mutateAsync: mutateAsyncSummary, isLoading: isSummaryLoading} = useFetchSummary();
 
   const onSubmit = async (data: FieldValues) => {
@@ -38,19 +38,21 @@ function App() {
         theme: 'dark'
       })
     })
-    await mutateAsync(data, {
-      onSuccess: ({data: payload}) => setStats(payload),
-      onError: () => toast.error("Data was not found!",{
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 2200,
-        theme: 'dark'
-      })
-    })
+    // await mutateAsync(data, {
+    //   onSuccess: ({data: payload}) => setStats(payload),
+    //   onError: () => toast.error("Data was not found!",{
+    //     position: toast.POSITION.TOP_RIGHT,
+    //     autoClose: 2200,
+    //     theme: 'dark'
+    //   })
+    // })
   };
 
   return (
     <>
-    {(isLoading || isSummaryLoading) && (
+    {(
+      // isLoading || 
+      isSummaryLoading) && (
         <div className="loader-overlay">
         <div className="loader">
           <div className="dot" />
